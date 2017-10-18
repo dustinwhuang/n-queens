@@ -126,12 +126,26 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      let pieces = 0;
+      let row = majorDiagonalColumnIndexAtFirstRow < 0 ? Math.abs(majorDiagonalColumnIndexAtFirstRow) : 0;
+      let col = majorDiagonalColumnIndexAtFirstRow < 0 ? 0 : majorDiagonalColumnIndexAtFirstRow;
+
+      for (; this._isInBounds(row, col); row++, col++) {
+        pieces += this.rows()[row][col];
+      }
+
+      return pieces > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      const diagonals = this.get('n') - 1;
+      for (let diag = 1 - diagonals; diag < diagonals; diag++) {
+        if (this.hasMajorDiagonalConflictAt(diag)) {
+          return true;
+        }
+      }
+      return false;        
     },
 
 
