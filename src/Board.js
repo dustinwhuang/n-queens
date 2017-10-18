@@ -155,12 +155,27 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      let pieces = 0;
+      const size = this.get('n') - 1;
+      let row = minorDiagonalColumnIndexAtFirstRow > size ? size : minorDiagonalColumnIndexAtFirstRow;
+      let col = minorDiagonalColumnIndexAtFirstRow > size ? minorDiagonalColumnIndexAtFirstRow - size : 0;
+
+      for (; this._isInBounds(row, col); row--, col++) {
+        pieces += this.rows()[row][col];
+      }
+
+      return pieces > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      const diagonals = (this.get('n') - 1) * 2;
+      for (let diag = 1; diag < diagonals; diag++) {
+        if (this.hasMinorDiagonalConflictAt(diag)) {
+          return true;
+        }
+      }
+      return false; 
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
