@@ -79,12 +79,18 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      let pieces = this.get(rowIndex).reduce((sum, key)=> sum + key);
+      return pieces > 1;      
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      for (let row = 0; row < this.rows().length; row++) {
+        if (this.hasRowConflictAt(row)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
