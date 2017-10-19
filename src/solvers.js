@@ -55,7 +55,7 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  let solutionCount = n  ? 0 : 1;
+  let solutionCount = n ? 0 : 1;
   let board = new Board({n: n});
   const test = board.hasAnyQueenConflictsOn;
 
@@ -65,7 +65,7 @@ window.countNQueensSolutions = function(n) {
   return solutionCount;
 };
 
-var placePieces = function(row, col,  pieces, n, board, test, solution = 0, count = false, fast = false, excludes = []) {
+var placePieces = function(row, col, pieces, n, board, test, solution = 0, count = false, fast = false, excludes = []) {
   // Iterate over columns in current row
   for (; board._isInBounds(row, col); col++) {
     // Use symmetry of the board to extrapolate
@@ -94,12 +94,12 @@ var placePieces = function(row, col,  pieces, n, board, test, solution = 0, coun
         if (solution.constructor === Array) {
           return solution;
         }
-        if (board.rows()[row][col + 1]){
+        if (board.rows()[row][col + 1]) {
           board.togglePiece(row, col + 1);
         }
         return solution;
       }
-    } else {  // no conflicts found
+    } else { // no conflicts found
       pieces++;
       if (row + 1 < n) {
         // store columns that already have pieces on them
@@ -112,10 +112,10 @@ var placePieces = function(row, col,  pieces, n, board, test, solution = 0, coun
         }
         excludes.pop();
         // Unset pieces
-        if (board.rows()[row+1][0]){
-          board.togglePiece(row+1, 0);
+        if (board.rows()[row + 1][0]) {
+          board.togglePiece(row + 1, 0);
         }
-        if (board.rows()[row][col]){
+        if (board.rows()[row][col]) {
           board.togglePiece(row, col);
         }
         pieces--;
