@@ -87,7 +87,7 @@ var placePieces = function(row, col, pieces, n, board, test, solution = 0, count
       board.togglePiece(row, col);
       if (col + 1 < n) {
         // Skip columns set in previous rows
-        for (; excludes.includes(col + 1); col++);
+        for (; excludes[col + 1]; col++);
 
         solution = placePieces(row, col + 1, pieces, n, board, test, solution, count, fast, excludes);
         // return first solution
@@ -103,14 +103,14 @@ var placePieces = function(row, col, pieces, n, board, test, solution = 0, count
       pieces++;
       if (row + 1 < n) {
         // store columns that already have pieces on them
-        excludes.push(col);
+        excludes[col] = true;
 
         solution = placePieces(row + 1, 0, pieces, n, board, test, solution, count, fast, excludes);
         // return first solution
         if (solution.constructor === Array) {
           return solution;
         }
-        excludes.pop();
+        delete excludes[col];
         // Unset pieces
         if (board.rows()[row + 1][0]) {
           board.togglePiece(row + 1, 0);
